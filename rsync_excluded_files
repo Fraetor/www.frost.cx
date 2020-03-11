@@ -1,2 +1,4 @@
 rsync_excluded_files
 README.md
+.git
+
