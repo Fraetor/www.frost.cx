@@ -16,7 +16,6 @@ a {
 	font-weight: 800;
 	text-decoration: none;
 	font-size: 20px;
-	
 }
 
 a.inlineHyperlink {
@@ -28,22 +27,28 @@ a:hover {
 	text-decoration: underline;
 }
 
-ul.comicNav li a {
-	color: white;
+ul.comicNav li {
 	display: inline;
-	font-size: 16px;
-	background-color: #96A8C8;
+	background-color: #6E7B91;
 	border: 1.5px solid black;
 	border-radius: 3px;
 	margin: 0 4px;
 	padding: 2px 12px;
+	box-shadow: 0 0 5px 0 grey;
+}
+
+ul.comicNav a:hover, ul.comicNav a:focus {
+	background-color: white;
+	color: #96A8C8;
+	box-shadow: none;
+}
+a.comicNav {
 	text-decoration: none;
-	
-	
+	font-size: 16px;
+	color: white;
 }
 
 p.smallprint {
-	width: 70%;
 	font-size: 6px;
 }
 
@@ -62,4 +67,5 @@ siteNav {
 	border: 1.5px solid black;
 	background-color: white;
 	border-radius: 10px;
+	display: grid;
 } 
