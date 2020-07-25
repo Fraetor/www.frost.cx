@@ -67,5 +67,7 @@ siteNav {
 	border: 1.5px solid black;
 	background-color: white;
 	border-radius: 10px;
-	display: grid;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 } 
