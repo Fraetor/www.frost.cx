@@ -68,10 +68,10 @@
     "witsec-mailform-recaptcha-score": "0.5",
     "witsec-mailform-disable-button": false,
     "gdpr": false,
-    "mbrsiteDomain": "v9ap1qvjna",
+    "mbrsiteDomain": "agrpc88mzb",
     "witsec-language": "en",
     "witsec-white-label": true,
-    "global_header_custom": "<link rel=\"icon\" href=\"/favicon.svg\" type=\"image/svg+xml\">\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\"/>\n<link rel=\"manifest\" href=\"/site.webmanifest\"<meta name=\"msapplication-TileColor\" content=\"#da532c\">\n<meta name=\"theme-color\" content=\"#ffffff\">"
+    "global_header_custom": "<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\"/>\n<link rel=\"manifest\" href=\"/site.webmanifest\"<meta name=\"msapplication-TileColor\" content=\"#da532c\">\n<meta name=\"theme-color\" content=\"#ffffff\">"
   },
   "pages": {
     "blog.html": {
