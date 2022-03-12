@@ -1,7 +1,7 @@
-# [fraetor.github.io](https://www.frost.cx)
+# [www.frost.cx](https://www.frost.cx)
 
 Repository for my personal website, hosted with GitHub pages.
 
-The site is built with [Mobirise](https://forums.mobirise.com/).
+The site is 100% hand crafted HTML/CSS, with no added colours or flavours.
 
 Access the site at [www.frost.cx](https://www.frost.cx)
