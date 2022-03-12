@@ -3,8 +3,8 @@
 @font-face {
     font-family: "Lato";
     src: local("Lato"),
-        url("/assets/fonts/Lato-Regular.woff2") format("woff2"),
-        url("/assets/fonts/la") format("truetype");
+        url("/assets/fonts/LatoLatin-Regular.woff2") format("woff2"),
+        url("/assets/fonts/Lato-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
@@ -12,7 +12,7 @@
 @font-face {
     font-family: "Noto Serif";
     src: local("Noto Serif"),
-        url("/assets/fonts/NotoSerif-Regular.woff2") format("woff2"),
+        url("/assets/fonts/NotoSerifLatin-Regular.woff2") format("woff2"),
         url("/assets/fonts/NotoSerif-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
