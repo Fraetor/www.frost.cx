@@ -1,10 +1,6 @@
 name: Generate and Deploy Website
 
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
   build-and-deploy-website:
@@ -23,8 +19,8 @@ jobs:
       - name: Build with site-generator.py
         run: python3 site-generator.py
       
-      - name: Deploy to gh-pages branch.
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: docs
+      # - name: Deploy to gh-pages branch.
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     branch: gh-pages
+      #     folder: docs
