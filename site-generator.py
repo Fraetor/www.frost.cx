@@ -52,7 +52,7 @@ for component in components:
 print("\nProcessing files:")
 files = list_files(Path(www_files), False)
 for file in files:
-    with open(file, "r+t", encoding="utf-8") as f:
+    with open(file, "rt", encoding="utf-8") as f:
         print(file)
         try:
             page = f.read()
@@ -63,5 +63,5 @@ for file in files:
             page = page.replace(
                 f"<!-- REPLACE: {component_name[i]} -->", component_text[i])
 
+    with open(file, "wt", encoding="utf-8") as f:
         f.write(page)
-
