@@ -11,7 +11,7 @@
 # of the source files, such as during a CI action.
 
 component_folder = "components"
-www_files = "docs"
+www_files = "src"
 
 
 
@@ -37,7 +37,7 @@ def list_files(root: Path, include_dirs: bool = False):
     return files
 
 
-print("Loading components:\n")
+print("Loading components:")
 components = list_files(Path(component_folder), False)
 component_text = []
 component_name = []
@@ -49,7 +49,7 @@ for component in components:
         component_text.append(f.read())
 
 
-print("\nProcessing files:\n")
+print("\nProcessing files:")
 files = list_files(Path(www_files), False)
 for file in files:
     with open(file, "r+t", encoding="utf-8") as f:
