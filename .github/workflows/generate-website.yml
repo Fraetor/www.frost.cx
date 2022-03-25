@@ -1,10 +1,10 @@
 name: Generate and Deploy Website
 
 on:
-  push:
+  - push:
     branches:
       - master
-  workflow_dispatch:
+  - workflow_dispatch
 
 jobs:
   build-and-deploy-website:
