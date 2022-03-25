@@ -7,8 +7,8 @@ on:
 
 jobs:
   build-and-deploy-website:
-    name: Build Website
-    concurrency: cd-${{ github.ref }}
+    name: Build and Deploy Website
+    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout website source
@@ -22,3 +22,4 @@ jobs:
         with:
           branch: gh-pages
           folder: docs
+          single-commit: true
