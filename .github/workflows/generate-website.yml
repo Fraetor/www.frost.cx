@@ -6,8 +6,8 @@ on:
       - master
 
 jobs:
-  build-website:
-    name: Build Website ⚙
+  build-and-deploy-website:
+    name: Build Website
     concurrency: cd-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
@@ -16,14 +16,9 @@ jobs:
 
       - name: Build with site-generator.py
         run: python3 site-generator.py
-
-  deploy-website:
-    name: Deploy Website ✈️
-    needs: build-website
-    steps:
+      
       - name: Deploy to gh-pages branch.
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs
-          single-commit: true
