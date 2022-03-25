@@ -1,0 +1,24 @@
+name: Generate and Deploy Website
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy-website:
+    name: Build Website
+    concurrency: cd-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website source
+        uses: actions/checkout@v3
+
+      - name: Build with site-generator.py
+        run: python3 site-generator.py
+      
+      - name: Deploy to gh-pages branch.
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs
