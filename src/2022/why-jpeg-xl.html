@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- REPLACE: head_tags -->
+
+    <meta name="description" content="Why I want JPEG XL to be the next big thing in image formats.">
+    <title>Why JPEG XL? | frost.cx</title>
+</head>
+
+<body>
+    <!-- REPLACE: navigation_bar -->
+
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>Why JPEG XL?</h1>
+                Published <time datetime="2022-04-22">2022-02-22</time> by James Frost.
+                <p class="tagline">Why I want JPEG XL to be the next big thing in image formats.</p>
+            </header>
+            <h2>Introduction</h2>
+            <p>
+                Images are a very common type of data, however the formats in which they are usually stored has not
+                changed much since the 1990s. Today images are commonly stored as either JPEGs or PNGs, and while there
+                are some other formats they all lack the universal adoption of these two formats. JPEG in particular has
+                proven difficult to dislodge, as it is actually really good. In 2022 however, we can do a lot better
+                than original JPEG. There are two main formats currently vying for this position, JPEG XL and AVIF.
+            </p>
+            <p>
+                <a href="https://jpegxl.info">JPEG XL</a> is a new format developed by the Joint Photographic Expert
+                Group te replace 1992 JPEG. While this is the same organisation, a working group of the ISO, being 30
+                years on the people behind it are different. It uses a lot of the same ideas as the original JPEG
+                (<a href="/2021/jpeg-talk.pdf">I've got some slides on it here</a>), but with many new ideas as well.
+                It also supports high bit depth (up to 32 bits per channel), HDR, colour profiles, huge images, many
+                channels, lossless, animation, and basically anything you would want in a raster image format.
+            </p>
+            <p>
+                <a href="https://aomediacodec.github.io/av1-avif/">AVIF</a> is another format trying to replace JPEG.
+                It is based upon the AV1 video format that has been developed over the past few years, and is
+                fundamentally just a single frame of AV1 video in a fancy container. It also supports many modern
+                features, and has recently been gaining browser support.
+            </p>
+            <h2>Why do I think JPEG XL is better?</h2>
+            <p>
+                In terms of density, that is how many bits it takes to represent an image at a set quality, JPEG XL and
+                AVIF are about the same. Depending on the type of image that is being compressed changes which one is
+                better. JPEG XL tends to be better on photos, or at high qualities, while AVIF does better on drawings
+                or at very low sizes, but there isn't much in it. They are both a significant improvement over JPEG,
+                but I'm going to come out on a limb here and say that most people don't actually care about getting
+                images super small. JPEG is plenty good enough for loading over mobile data connections, and they are
+                only going to get faster.
+            </p>
+            <p>
+                What I think makes JPEG XL better is its feature set. A JPEG XL file can store pretty much any
+                conceivable image. Unlike the original JPEG it can support high bit depth content, with accurate
+                colours. And compared to formats like AVIF, which are based off video codecs, there are no limits
+                for which you are likely to encounter. AVIF has a limit of an image being less than ~16,000 pixels in
+                any dimension, which large images can exceed, and most certainly will in future. While this can be
+                worked around with tiling, it is much nicer if the format can just avoid having these issues.
+            </p>
+            <p>
+                Another thing against AVIF is its implementations not supporting the full set of its features. For
+                example, AVIF support was recently added to Android in Android 12, but it doesn't properly support 12
+                bit per channel images. Firefox supports AVIF, but not its animated variant, which leads to
+                <a href="https://twitter.com/Enichan/status/1500176971141111815">some major websites being broken.</a>
+                A lot of these incomplete implementations come from hardware decode being used for AVIF, as it is
+                quite slow. JPEG XL is instead fast enough to use the CPU, which makes it more portable, and ensures
+                that all the features are supported.
+            </p>
+            <p>
+                JPEG XL has a very interesting trick that I think will greatly aid adoption. It can losslessly
+                transcode original JPEG files into smaller JPEG XL files, and then the original JPEG file can be
+                retrieved if ever needed. This is possible because JPEG XL is a superset of everything that JPEG can
+                do. This means that JPEG XL can improve density of the billions of existing images in the world, while
+                with other formats you wouldn't want to touch them due to compounding loss.
+            </p>
+            <p>
+                Probably the biggest detractor from JPEG XL currently is support. AVIF has recently gained browser
+                support in Firefox, which along with Chrome make it supported most places. JPEG XL is behind a flag
+                in both of these browsers, and thus not enabled by default. I put this down primarily to JPEG XL being
+                newer than AVIF, with the JPEG XL spec being published in 2021 while AVIF was bach in 2019. I'm hoping
+                that this will improve soon however, as version 1.0 of the
+                <a href="https://github.com/libjxl/libjxl">libjxl reference implementation</a> of JPEG XL should be
+                coming within the next month, which should hopefully encourage anyone waiting for API stabilisation, or
+                who is scared off by the current v0.X status. You can use the below images to see if your browser
+                supports either of these two newer formats.
+            </p>
+            <figure>
+                <picture>
+                    <source srcset="why-jpeg-xl/jxl-support.jxl" type="image/jxl">
+                    <img class="fancy-picture" src="why-jpeg-xl/jxl-no-support.png"
+                        alt="An image to test if your browser supports JPEG XL. The image will be a PNG if not supported.">
+                </picture>
+                <picture>
+                    <source srcset="why-jpeg-xl/avif-support.avif" type="image/avif">
+                    <img class="fancy-picture" src="why-jpeg-xl/avif-no-support.png"
+                        alt="An image to test if your browser supports AVIF. The image will be a PNG if not supported.">
+                </picture>
+                <figcaption>Test images to see if your browser requests and displays JPEG XL and AVIF.</figcaption>
+            </figure>
+            <p>
+                Although I have been somewhat critical of AVIF in this article, I don't think it is a bad format. If
+                you already have support for AV1 video in your environment, such as a browser, it is very easy to
+                implement. It is also very good at making images look nice (though not necessarily accurate) at very
+                low bitrates, when artifacts would make other formats untenable. I think AVIF could be a great format
+                for CDNs to automatically transcode files for web delivery. I just don't see it becoming a long terms
+                format, and instead I expect it to be replaced when the next big step in video formats comes around.
+            </p>
+            <p>
+                Overall I really want JPEG XL to succeed, as it would bring a whole load of modern image features in a
+                single format that could then be the goto format for everything. In my view JPEG XL has the potential
+                to do what JPEG did, and stick around as the dominant image format for decades to come, something I
+                don't thing its competitors can do. But for now all we can do is wait and see what happens.
+            </p>
+        </article>
+    </main>
+
+    <footer>
+        <!-- REPLACE: copyright_footer -->
+    </footer>
+</body>
+
+</html>
