@@ -32,7 +32,8 @@
                 years on the people behind it are different. It uses a lot of the same ideas as the original JPEG
                 (<a href="/2021/jpeg-talk.pdf">I've got some slides on it here</a>), but with many new ideas as well.
                 It also supports high bit depth (up to 32 bits per channel), HDR, colour profiles, huge images, many
-                channels, lossless, animation, and basically anything you would want in a raster image format.
+                channels, lossless, transparency, animation, and basically anything you would want in a raster image
+                format.
             </p>
             <p>
                 <a href="https://aomediacodec.github.io/av1-avif/">AVIF</a> is another format trying to replace JPEG.
@@ -45,10 +46,10 @@
                 In terms of density, that is how many bits it takes to represent an image at a set quality, JPEG XL and
                 AVIF are about the same. Depending on the type of image that is being compressed changes which one is
                 better. JPEG XL tends to be better on photos, or at high qualities, while AVIF does better on drawings
-                or at very low sizes, but there isn't much in it. They are both a significant improvement over JPEG,
+                or at very low quality, but there isn't much in it. They are both a significant improvement over JPEG,
                 but I'm going to come out on a limb here and say that most people don't actually care about getting
-                images super small. JPEG is plenty good enough for loading over mobile data connections, and they are
-                only going to get faster.
+                images super small. A decently optimised JPEG is good enough for loading over mobile data connections,
+                and they are only going to get faster.
             </p>
             <p>
                 What I think makes JPEG XL better is its feature set. A JPEG XL file can store pretty much any
