@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- REPLACE: head_tags -->
+
+    <meta name="description" content="[PAGE DESCRIPTION]">
+    <title>Thoughts on Software Licences | frost.cx</title>
+</head>
+
+<body>
+    <!-- REPLACE: navigation_bar -->
+
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>Thoughts on Software Licences</h1>
+                Published <time datetime="2022-08-23">2022-08-23</time> by James Frost.
+                <p class="tagline">My thoughts on open source software licencing.</p>
+            </header>
+            <h2>Why licence?</h2>
+            <p>Open source software is great, however it exists in a world where authorship automatically restricts what can be done with a work. Because of this, software needs to be licenced for it to be of any (legal) use to anybody, even if shared. This licencing is a complicated topic, full of issues both legal and political.</p>
+
+            <h2>What is out there?</h2>
+            <p>There are many licences out there filling many different needs. You might be making an application to sell, or you might be making a library that you want people to freely use and change. These use cases require different licences, but I think it generally breaks down into a few categories.</p>
+
+            <h3>Proprietary</h3>
+            <p>This kind of licence pretty much limits the end user to running your program, and often has additional requirements to do even that. A simple example would be software that you need to pay for before you may use. This is a very common model with things such as video games. On the other hand you get a lot of "freeware" that is proprietary, where you can download and use it, but not share of modify it.</p>
+
+            <p>Proprietary licences can also impose additional conditions, as commonly seen with End User Licence Agreements. EULAs can say anything from disclaiming liability to requiring that you wear a specific kind of hat whilst using the program (though enforceability may be difficult in that case).</p>
+
+            <p>It is important to realise that proprietary is the default state under common copyright laws, with a licence required for anyone other that the author to do anything with the software.</p>
+
+            <p>Generally I am not against proprietary licences where they make sense. I think that for many types of project (especially oneish-time experiences like video games) copyright is the right tool to allow authors to profit from their work, and is much more reasonable than software patents (which I do think are stupid). It might also be generally sensible to also keep the software source secret, but that is not always required.</p>
+
+
+            <h3>Copyleft</h3>
+            <p>Copyleft licences use the mechanisms of copyright to ensure that software remains unrestricted. They require that derivatives of the original work be licenced under the same terms as the original program.</p>
+
+            <p>The idea behind this is that it means that a project can't just be forked and then made into a proprietary program, though if this copyright is all attributed to a single entity then the program could still be relicensed as such.</p>
+
+            <p>Copyleft licences are typically incompatible with each other, meaning you can't make a program that has code from a GPLv3 project and a different MPL-2.0 licenced one, as they both require reciprocating their licences. This is probably the major sticking point with copyleft licences.</p>
+
+            <p>Examples of copyleft licences include:</p>
+            <ul>
+                <li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3 Licence</a></li>
+                <li><a href="https://www.mozilla.org/en-US/MPL/">Mozilla Public Licence 2.0</a></li>
+            </ul>
+
+
+            <h3>Permissive</h3>
+            <p>Permissive licences for the most part let you do whatever you want with the software, including making it part of a proprietary program. They grant pretty much all rights, and the conditions are quite minimal, typically just requiring retention of the licence notice, thought there are <a href="https://spdx.org/licenses/MIT-0.html"></a>exceptions that don't require this</a>.</p>
+
+            <p>Something to note is that patents are not always granted with a permissive licence. The Apache-2.0 licence has an explicit patent grant, but the others are best accompanied by an explicit patient exception if there are any patents that could cover the software. That said, <a href="https://fsfe.org/activities/swpat/swpat.en.html">software patents are silly</a>, which is why they <a href="https://www.epo.org/law-practice/legal-texts/html/epc/2016/e/ar52.html">don't exist in the EU</a>.</p>
+
+            <p>Examples of permissive licences include:</p>
+            <ul>
+                <li><a href="https://www.apache.org/licenses/LICENSE-2.0">Apache-2.0 Licence</a></li>
+                <li><a href="https://spdx.org/licenses/BSD-3-Clause.html">BSD-3-Clause Licence</a></li>
+                <li><a href="https://spdx.org/licenses/MIT.html">MIT Licence</a></li>
+            </ul>
+
+
+            <h2>My Licence Choices</h2>
+            <p>My personal choice of licences mainly focus around a couple of points: practicality, and simplicity</p>
+
+            <p>My goto licence is the BSD-3-Clause licence. I choose a permissive licence mainly because of enforceability; I'm not going to hunt down and sue anyone breaking my licence terms, and as such I want to make it as easy as possible to comply. I also actually want people to use the code I share online, and thus I don't personally see much sense in restricting it heavily.</p>
+
+            <p>As for why I choose BSD-3-Clause specifically, honestly one of the main reasons is aesthetics. Compared the more popular MIT licence I find it much more readable with the conditions broken out into bullet points, and it has much less legalese. Perhaps that legalese make the MIT licence slightly more robust in court, but most analysis I have seen indicates they are pretty much equivalent licences, and I like being able to easily understand what the licence says.</p>
+
+            <p>The BSD-3-Clause also includes a condition about not claiming false endorsement, which is nice though unnecessary as this is generally illegal anyway. If you want to save the extra line there is the <a href="https://spdx.org/licenses/BSD-2-Clause.html">BSD-2-Clause licence</a>, but I don't mind reminding people about it.</p>
+
+            <p>As far as permissive licences go the Apache-2.0 licence seems to be the most comprehensive, and includes an explicit patent grant. This does lead to some issues regarding <a href="https://www.apache.org/licenses/GPL-compatibility.html">compatibility with certain copyleft licences however</a>. Apache-2.0 also is quite long and full of legalese compared to the BSD and MIT licences.</p>
+            
+            <p>MIT is the most popular permissive licence, and is also a good choice. If you think there might be relevant patents to your program, it might be worth including a separate explicit patent grant, <a href="https://github.com/libjxl/libjxl/blob/main/PATENTS">as done by libjxl</a>.</p>
+
+            <p>Finally, I tend to avoid copyleft licences, as it makes it harder for people to use my shared code. I think they make sense on projects that are more self-contained, as they are unlikely to be included into another program, and they do ensure that it remains open. I don't write many of these type of programs though.</p>
+
+            <p>These are my thoughts on the matter. Here's to hoping the world of software licencing doesn't get any murkier.</p>
+
+        </article>
+    </main>
+
+    <footer>
+        <!-- REPLACE: copyright_footer -->
+    </footer>
+</body>
+
+</html>
