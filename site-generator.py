@@ -14,7 +14,7 @@ from shutil import copytree, rmtree
 from sys import argv
 
 
-def _list_files(directory: Path, include_dirs: bool = False) -> list[Path]:
+def _list_files(directory: Path, include_dirs: bool = False) -> list:
     """
     Helper function to return the files in specified directory.
 
@@ -56,7 +56,7 @@ def copy_to_build_dir(source_dir: Path, build_dir: Path):
     copytree(source_dir, build_dir, dirs_exist_ok=True)
 
 
-def load_components(components_dir: Path) -> list[dict[str]]:
+def load_components(components_dir: Path) -> list:
     """
     Loads the components from the components directory.
 
@@ -78,7 +78,7 @@ def load_components(components_dir: Path) -> list[dict[str]]:
     return components
 
 
-def rewrite_files(build_dir: Path, components: list[dict[str]]):
+def rewrite_files(build_dir: Path, components: list):
     """
     Rewrites the files in the specified directory using the components.
 
