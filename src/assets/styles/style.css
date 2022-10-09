@@ -1,3 +1,58 @@
+/* ===== Start CSS Reset ===== */
+/* Modified from https://piccalil.li/blog/a-modern-css-reset/ */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body {
+    margin: 0;
+}
+
+/* a elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+address,
+select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ===== End CSS Reset ===== */
+
+
+
 /* Fonts */
 
 @font-face {
@@ -11,7 +66,7 @@
     font-style: normal;
 }
 
-@font-face {
+/* @font-face {
     font-family: "Noto Serif";
     src:
         local("Noto Serif"),
@@ -19,13 +74,24 @@
         url("/assets/fonts/NotoSerif-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
-}
+} */
 
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src:
+        local("Atkinson Hyperlegible Regular"),
+        local("Atkinson Hyperlegible"),
+        url("/assets/fonts/AtkinsonHyperlegible-Regular.woff2") format("woff2"),
+        url("/assets/fonts/AtkinsonHyperlegible-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 /* General content styling */
 
-h1, h2 {
+h1,
+h2 {
     font-family: "Lato", sans-serif;
     font-weight: bold;
     text-align: center;
@@ -38,9 +104,15 @@ h1 {
     font-size: 4rem;
 }
 
+h3 {
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
+}
+
 p {
-    font-family: "Noto Serif", serif;
-    font-size: 1rem;
+    /* font-family: "Noto Serif", serif; */
+    font-family: "Atkinson Hyperlegible", "Lato", sans-serif;
+    font-size: 1.2em;
     line-height: 1.75;
 }
 
@@ -48,7 +120,8 @@ a {
     text-decoration: none;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
     text-decoration: underline;
 }
 
@@ -68,6 +141,7 @@ a:focus, a:hover {
 
 figcaption {
     text-align: center;
+    margin-bottom: 1rem;
 }
 
 .article-header {
@@ -82,6 +156,7 @@ figcaption {
     margin: 0 auto;
     text-align: center;
 }
+
 .blog-post p {
     text-align: left;
 }
@@ -114,10 +189,11 @@ main {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+
     justify-content: space-between;
     align-items: center;
 }
+
 @media (max-width: 800px) {
     .navbar {
         justify-content: space-around;
@@ -129,13 +205,17 @@ main {
     text-decoration: none;
     color: unset;
 }
-.navbar-title:focus, .navbar-title:hover {
+
+.navbar-title:focus,
+.navbar-title:hover {
     text-decoration: none;
 }
+
 .navbar-title img {
     border-radius: 15%;
     height: 5rem;
 }
+
 .navbar-title span {
     font-size: 2rem;
     margin: auto 1.2rem;
@@ -149,13 +229,16 @@ main {
     justify-content: center;
     padding: 0;
 }
+
 .navbar ul a {
     text-decoration: none;
     margin: 0 0.5rem;
     font-size: 1.5rem;
     color: unset;
 }
-.navbar ul a:hover, .navbar ul a:focus {
+
+.navbar ul a:hover,
+.navbar ul a:focus {
     border-bottom: solid black;
 }
 
@@ -183,21 +266,26 @@ main {
     justify-content: space-around;
     align-items: center;
 }
+
 .homepage-intro picture {
     max-width: 95%;
     width: 400px;
 }
+
 .homepage-intro img {
     width: 100%;
     border-radius: 5%;
 }
+
 .homepage-intro div {
     width: 668px;
     margin: 0 16px;
 }
+
 .homepage-intro p {
     margin: 1rem auto;
 }
+
 .homepage-intro h1 {
     font-size: 3rem;
     text-align: left;
@@ -209,6 +297,7 @@ main {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
 .homepage-socials img {
     border-radius: 15%;
     width: 80px;
@@ -227,6 +316,7 @@ main {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
 .homepage-columns article {
     max-width: 500px;
 }
@@ -245,10 +335,13 @@ main {
     margin-top: 6rem;
     margin-bottom: 3rem;
 }
-.contact-methods p, .contact-methods h2 {
+
+.contact-methods p,
+.contact-methods h2 {
     font-family: "Lato", sans-serif;
     margin: 0.5rem 0;
 }
+
 .contact-methods img {
     width: 120px;
 }
