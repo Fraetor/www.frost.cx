@@ -26,7 +26,8 @@ select {
     font: inherit;
 }
 
-/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+/* Remove all animations, transitions and smooth scroll for people that prefer
+not to see them */
 @media (prefers-reduced-motion: reduce) {
     html:focus-within {
         scroll-behavior: auto;
@@ -45,7 +46,6 @@ select {
 /* ===== End CSS Reset ===== */
 
 
-
 /* Fonts */
 
 @font-face {
@@ -55,40 +55,31 @@ select {
         local("Lato Regular"),
         local("Lato-Regular"),
         url("/assets/fonts/LatoLatin-Regular.woff2") format("woff2");
-        /* Only need to load woff2 as no current browser doesn't support it. */
-        /* url("/assets/fonts/Lato-Regular.ttf") format("truetype"); */
+    /* Only need to load woff2 as no current browser doesn't support it. */
     font-weight: normal;
     font-style: normal;
     font-display: fallback;
 }
 
-/* @font-face {
-    font-family: "Noto Serif";
-    src:
-        local("Noto Serif"),
-        url("/assets/fonts/NotoSerifLatin-Regular.woff2") format("woff2"),
-        url("/assets/fonts/NotoSerif-Regular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-} */
 
-/* @font-face {
-    font-family: "Atkinson Hyperlegible";
-    src:
-        local("Atkinson Hyperlegible Regular"),
-        local("Atkinson Hyperlegible"),
-        url("/assets/fonts/AtkinsonHyperlegible-Regular.woff2") format("woff2"),
-        url("/assets/fonts/AtkinsonHyperlegible-Regular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-} */
+/* Whole page styling */
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+main {
+    text-align: left;
+    margin: 0 auto;
+    width: 1100px;
+    max-width: 95%;
+}
 
 
 /* General content styling */
 
 h1,
 h2 {
-    font-family: "Lato", sans-serif;
     font-weight: bold;
     text-align: center;
     margin-top: 3rem;
@@ -101,14 +92,24 @@ h1 {
 }
 
 h3 {
-    font-family: "Lato", sans-serif;
     font-size: 1.5rem;
 }
 
 p {
-    font-family: "Lato", sans-serif;
     font-size: 1.2em;
     line-height: 1.75;
+}
+
+article>p,
+article>ul,
+article>h3 {
+    /* Limit article text to 80 Lato characters wide. (80 * 0.9283 = 74.264) */
+    max-width: 74ch;
+    margin: 1em auto;
+}
+
+article>h3 {
+    text-align: center;
 }
 
 a {
@@ -121,7 +122,6 @@ a:hover {
 }
 
 .tagline {
-    font-family: "Lato", sans-serif;
     font-weight: bold;
     font-size: 1.6rem;
 }
@@ -157,22 +157,6 @@ figcaption {
 }
 
 
-
-/* Whole page styling */
-
-body {
-    font-family: "Lato", sans-serif;
-}
-
-main {
-    text-align: left;
-    margin: 0 auto;
-    width: 1100px;
-    max-width: 95%;
-}
-
-
-
 /* Navbar styling */
 
 .navbar {
@@ -180,11 +164,9 @@ main {
     width: 1100px;
     max-width: 95%;
     min-height: 5rem;
-
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
     justify-content: space-between;
     align-items: center;
 }
@@ -317,7 +299,6 @@ main {
 }
 
 
-
 /* Contact page styling */
 .contact-methods {
     display: flex;
@@ -333,7 +314,6 @@ main {
 
 .contact-methods p,
 .contact-methods h2 {
-    font-family: "Lato", sans-serif;
     margin: 0.5rem 0;
 }
 
