@@ -1,0 +1,322 @@
+/* ===== Start CSS Reset ===== */
+/* Modified from https://piccalil.li/blog/a-modern-css-reset/ */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body {
+    margin: 0;
+}
+
+/* a elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+address,
+select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer
+not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ===== End CSS Reset ===== */
+
+
+/* Fonts */
+
+@font-face {
+    font-family: "Lato";
+    src:
+        local("Lato"),
+        local("Lato Regular"),
+        local("Lato-Regular"),
+        url("/assets/fonts/LatoLatin-Regular.woff2") format("woff2");
+    /* Only need to load woff2 as no current browser doesn't support it. */
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+}
+
+
+/* Whole page styling */
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+main {
+    text-align: left;
+    margin: 0 auto;
+    width: 1100px;
+    max-width: 95%;
+}
+
+
+/* General content styling */
+
+h1,
+h2 {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.75;
+}
+
+article>p,
+article>ul,
+article>h3 {
+    /* Limit article text to 80 Lato characters wide. (80 * 0.9283 = 74.264) */
+    max-width: 74ch;
+    margin: 1em auto;
+}
+
+article>h3 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:focus,
+a:hover {
+    text-decoration: underline;
+}
+
+.tagline {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.fancy-picture {
+    display: block;
+    margin: 1rem auto;
+    width: 800px;
+    max-width: 90%;
+    border-radius: 20px;
+}
+
+figcaption {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.article-header {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.blog-post {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.blog-post p {
+    text-align: left;
+}
+
+
+/* Navbar styling */
+
+.navbar {
+    margin: 1rem auto;
+    width: 1100px;
+    max-width: 95%;
+    min-height: 5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        justify-content: space-around;
+    }
+}
+
+.navbar-title {
+    display: flex;
+    text-decoration: none;
+    color: unset;
+}
+
+.navbar-title:focus,
+.navbar-title:hover {
+    text-decoration: none;
+}
+
+.navbar-title img {
+    border-radius: 15%;
+    height: 5rem;
+}
+
+.navbar-title span {
+    font-size: 2rem;
+    margin: auto 1.2rem;
+    font-weight: bold;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+}
+
+.navbar ul a {
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    color: unset;
+}
+
+.navbar ul a:hover,
+.navbar ul a:focus {
+    border-bottom: solid black;
+}
+
+
+/* Footer styling */
+
+.footer-copyright {
+    color: #767676;
+    text-align: center;
+    font-size: small;
+    margin: 2rem auto;
+}
+
+.footer-copyright a {
+    color: #767676;
+}
+
+
+
+/* Homepage styling */
+
+.homepage-intro {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.homepage-intro picture {
+    max-width: 95%;
+    width: 400px;
+}
+
+.homepage-intro img {
+    width: 100%;
+    border-radius: 5%;
+}
+
+.homepage-intro div {
+    width: 668px;
+    margin: 0 16px;
+}
+
+.homepage-intro p {
+    margin: 1rem auto;
+}
+
+.homepage-intro h1 {
+    font-size: 3rem;
+    text-align: left;
+    margin: 1rem auto;
+}
+
+.homepage-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.homepage-socials img {
+    border-radius: 15%;
+    width: 80px;
+    height: 80px;
+    margin: 1rem;
+}
+
+.homepage-postlist {
+    padding: 0;
+    list-style: none;
+    margin: 0 auto;
+}
+
+.homepage-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.homepage-columns article {
+    max-width: 500px;
+}
+
+
+/* Contact page styling */
+.contact-methods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    font-style: unset;
+    text-align: center;
+
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+}
+
+.contact-methods p,
+.contact-methods h2 {
+    margin: 0.5rem 0;
+}
+
+.contact-methods img {
+    width: 120px;
+}

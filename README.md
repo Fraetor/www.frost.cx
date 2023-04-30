@@ -1,5 +1,7 @@
-# www.frost.cx
-This is the git repository for my personal website, accessible [here](http://www.frost.cx).
-This allows for version controlled changes to the site, as well as automatic syncing to the server.
+# [www.frost.cx](https://www.frost.cx)
 
-I have since moved the site to a different repo [here](https://github.com/Fraetor/fraetor.github.io) so that is is hosted on GitHub pages.
+Repository for my personal website, hosted with GitHub pages behind Cloudflare.
+
+The site is 100% hand crafted HTML/CSS, with no added colours or flavours, though I have written a little python site generator to be able to reuse components.
+
+Access the site at [www.frost.cx](https://www.frost.cx)
