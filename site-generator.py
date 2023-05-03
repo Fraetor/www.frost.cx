@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 #######################################################################
 #                        Static Site Generator                        #
 #######################################################################
@@ -7,16 +9,33 @@
 # what. The component_name is taken from the file name, sans extension of the
 # component. The components are under the components_folder and the program
 # operates on the source_files folder. The program writes the outputted files
-# todd the build folder.
+# to the build folder.
 
+import argparse
 from pathlib import Path
 from shutil import copytree, rmtree
-from sys import argv
+
+import marko
 
 
-def _list_files(directory: Path, include_dirs: bool = False) -> list:
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source", type=Path, default="src",
+                        help="path to source folder")
+    parser.add_argument("--output", type=Path, default="build",
+                        help="path to output folder")
+    parser.add_argument("--components", type=Path, default="components",
+                        help="path to components folder")
+    parser.add_argument("--templates", type=Path, default="templates",
+                        help="path to templates folder")
+    parser.add_argument("-c", "--clean", action="store_true",
+                        help="remove preexisting files from the output directory.")
+    return parser.parse_args()
+
+
+def list_files(directory: Path, include_dirs: bool = False) -> list:
     """
-    Helper function to return the files in specified directory.
+    Helper function to return the files in specified directory, and below.
 
     Args:
         directory: Path - The path of the directory under which to find files.
@@ -33,30 +52,8 @@ def _list_files(directory: Path, include_dirs: bool = False) -> list:
     return files
 
 
-def clean_build_dir(build_dir: Path):
-    """
-    Removes any preexisting files from the build directory.
 
-    Args:
-        build_dir: Path - The directory to clean
-    """
-    if "-c" or "--clean" in argv:
-        # Delete preexisting files in build folder.
-        rmtree(build_dir, ignore_errors=True)
-
-
-def copy_to_build_dir(source_dir: Path, build_dir: Path):
-    """
-    Copies files from source to build directory.
-
-    Args:
-        source_dir: Path - The directory to copy from.
-        build_dir: Path - The directory to copy to.
-    """
-    copytree(source_dir, build_dir, dirs_exist_ok=True)
-
-
-def load_components(components_dir: Path) -> list:
+def load_components(components_dir: Path) -> dict:
     """
     Loads the components from the components directory.
 
@@ -64,21 +61,19 @@ def load_components(components_dir: Path) -> list:
         components_dir: Path - The directory to load the components from.
 
     Returns:
-        list[dict[str]] - List of components. Keys are "name" and "text".
+        dict[str] - Dict of components.
     """
     print("Loading components:")
-    component_files = _list_files(components_dir)
-    components = []
+    component_files = list_files(components_dir)
+    components = {}
     for component_file in component_files:
         component_name = component_file.stem
         print(component_name)
-        with open(component_file, "rt", encoding="UTF-8") as f:
-            component_text = f.read()
-        components.append({"name": component_name, "text": component_text})
+        components[component_name] = component_file.read_text("UTF-8")
     return components
 
 
-def rewrite_files(build_dir: Path, components: list):
+def rewrite_files(build_dir: Path, components: list, template_dir: Path):
     """
     Rewrites the files in the specified directory using the components.
 
@@ -87,31 +82,35 @@ def rewrite_files(build_dir: Path, components: list):
         components: list[dict[str]] - List of component dictionaries.
     """
     print("\nProcessing files:")
-    files = _list_files(build_dir)
+    files = list_files(build_dir)
+    markdown = marko.Markdown(extensions=['toc', 'footnote', 'codehilite'])
     for file in files:
-        with open(file, "rt", encoding="UTF-8") as f:
-            print(file)
-            try:
-                page = f.read()
-            except UnicodeDecodeError:  # Skip files that aren't text.
-                continue
-            for component in components:
-                page = page.replace(
-                    f"<!-- REPLACE: {component['name']} -->", component['text'])
-        with open(file, "wt", encoding="UTF-8") as f:
-            f.write(page)
+        print(file)
+        try:
+            page = file.read_text("UTF-8")
+        except UnicodeDecodeError:  # Skip files that aren't text.
+            continue
+        if file.suffix == ".md":
+            components["content"] = markdown.convert(page)
+            components["title"] = file.stem.replace("_", " ").title()
+            page = template_dir.joinpath("basic.html").read_text("UTF-8")
+            file.unlink()
+            file = file.with_suffix(".html")
+        for component in components:
+            page = page.replace(
+                f"<!-- REPLACE: {component} -->", components[component])
+        file.write_text(page, "UTF-8")
 
 
 def main():
-    # TODO: Implement command line configuration of paths.
-    component_folder = Path("components")
-    source_folder = Path("src")
-    output_folder = Path("build")
-
-    clean_build_dir(output_folder)
-    copy_to_build_dir(source_folder, output_folder)
-    components = load_components(component_folder)
-    rewrite_files(output_folder, components)
+    args = parse_args()
+    if args.clean:
+        print("Cleaning build directory...\n")
+        # Delete preexisting files in build folder.
+        rmtree(args.output, ignore_errors=True)
+    copytree(args.source, args.output, dirs_exist_ok=True)
+    components = load_components(args.components)
+    rewrite_files(args.output, components, args.templates)
 
 
 if __name__ == "__main__":

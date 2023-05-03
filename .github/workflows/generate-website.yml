@@ -29,6 +29,9 @@ jobs:
       - name: Checkout website source
         uses: actions/checkout@v3
 
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt
+
       - name: Build with site-generator.py
         run: python3 site-generator.py
 
