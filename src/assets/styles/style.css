@@ -112,13 +112,10 @@ article>h3 {
     text-align: center;
 }
 
-a {
-    text-decoration: none;
-}
-
 a:focus,
 a:hover {
-    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: max(3px, 0.12em);
 }
 
 .tagline {
