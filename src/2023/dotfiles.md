@@ -1,4 +1,7 @@
-# My Dotfile Setup
+<header class="article-header">
+    <h1>My Dotfile Setup</h1> Published <time datetime="2023-09-18">2023-09-18</time> by James Frost.
+    <p class="tagline">How I manage my configuration.</p>
+</header>
 
 ***TODO: Rewrite this into a proper article. It is currently a mess of notes to self.***
 
@@ -63,3 +66,4 @@ These can be stored on separate branches. As the main idea with dotfiles is to h
 ---
 
 P.S. Writing is hard.
+
