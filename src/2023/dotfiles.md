@@ -1,7 +1,7 @@
 <header class="article-header">
     <h1>Dotfile Setup</h1>
-    Published <time datetime="2023-09-18">2023-09-18</time> by James Frost.
-    <p class="tagline">How I manage my configuration.</p>
+    Published <time datetime="2023-12-02">2023-12-02</time> by James Frost.
+    <p class="tagline">How I manage my configurations.</p>
 </header>
 
 Dotfiles are configuration files (typically starting with a `.`) used by many
