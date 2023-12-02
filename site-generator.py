@@ -20,16 +20,27 @@ import marko
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--source", type=Path, default="src",
-                        help="path to source folder")
-    parser.add_argument("--output", type=Path, default="build",
-                        help="path to output folder")
-    parser.add_argument("--components", type=Path, default="components",
-                        help="path to components folder")
-    parser.add_argument("--templates", type=Path, default="templates",
-                        help="path to templates folder")
-    parser.add_argument("-c", "--clean", action="store_true",
-                        help="remove preexisting files from the output directory.")
+    parser.add_argument(
+        "--source", type=Path, default="src", help="path to source folder"
+    )
+    parser.add_argument(
+        "--output", type=Path, default="build", help="path to output folder"
+    )
+    parser.add_argument(
+        "--components",
+        type=Path,
+        default="components",
+        help="path to components folder",
+    )
+    parser.add_argument(
+        "--templates", type=Path, default="templates", help="path to templates folder"
+    )
+    parser.add_argument(
+        "-c",
+        "--clean",
+        action="store_true",
+        help="remove preexisting files from the output directory.",
+    )
     return parser.parse_args()
 
 
@@ -50,7 +61,6 @@ def list_files(directory: Path, include_dirs: bool = False) -> list:
             continue
         files.append(file)
     return files
-
 
 
 def load_components(components_dir: Path) -> dict:
@@ -83,7 +93,7 @@ def rewrite_files(build_dir: Path, components: list, template_dir: Path):
     """
     print("\nProcessing files:")
     files = list_files(build_dir)
-    markdown = marko.Markdown(extensions=['toc', 'footnote', 'codehilite'])
+    markdown = marko.Markdown(extensions=["toc", "footnote", "codehilite"])
     for file in files:
         print(file)
         try:
@@ -97,8 +107,7 @@ def rewrite_files(build_dir: Path, components: list, template_dir: Path):
             file.unlink()
             file = file.with_suffix(".html")
         for component in components:
-            page = page.replace(
-                f"<!-- REPLACE: {component} -->", components[component])
+            page = page.replace(f"<!-- REPLACE: {component} -->", components[component])
         file.write_text(page, "UTF-8")
 
 
