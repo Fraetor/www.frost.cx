@@ -1,0 +1,16 @@
+# See https://pre-commit.com for more information
+---
+ci:
+  autoupdate_schedule: monthly
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: c4a0b883114b00d8d76b479c820ce7950211c99b  # frozen: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=10240']
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
