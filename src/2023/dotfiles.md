@@ -66,4 +66,3 @@ These can be stored on separate branches. As the main idea with dotfiles is to h
 ---
 
 P.S. Writing is hard.
-
