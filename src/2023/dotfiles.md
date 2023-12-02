@@ -14,7 +14,7 @@ This means that the only hard dependency is git (though curl and sh are nice to 
 For completeness (and preventing death by 404) I'll rewrite the method here. The key changes I've made are as follows:
 
 * Renamed the alias to `dotfile`. Given that is the obvious name to me.
-* Added a .gitignore, as otherwise you can't do `dotfile add .`. You do however now need to use --force when adding thing for the first time.
+* Added a wildcard .gitignore, so you can `dotfile add .` changes. Hence need to use --force when adding things for the first time. Hidden as .dotfiles/info/exclude
 * Adding a nice interactive script when restoring the dotfiles.
 
 The key to this method is using a bare repository with a custom alias of git that sets the working dir to `$HOME`.
@@ -34,8 +34,7 @@ dotfile config --local status.showUntrackedFiles no
 Then push to a remote like GitHub.
 
 ## Adding configs
-
-This is really simple.
+Adding configurations is quite simple. The only difference from normal git usage is the force add.
 
 `dotfile add --force example.conf` to add a config for the first time.
 
@@ -63,6 +62,13 @@ curl -LsSf https://gist.githubusercontent.com/Fraetor/059207afa6a1791f480586cf52
 
 These can be stored on separate branches. As the main idea with dotfiles is to have a unified config everywhere there shouldn't be a huge amount of difference from the main branch, but it can still be useful to have some. Branches should be regularly rebased on main, perhaps by CI?
 
----
+## Known issues
 
-P.S. Writing is hard.
+### ~/.gitconfig cannot be managed across identities
+
+A gitconfig file contains many useful aliases and tweaks for git. Unfortunately this dotfile manager cannot handle this file, at least not across systems.
+Another thing contained within a gitconfig file is the committer identity and a reference to the signing key git uses. This will always be per system, as the private signing keys should not leave the system they were generated on.
+
+Unfortunately the standard method of having per system branches does not work as many operations checkout these branches and fail when they can't find the correct signing keys due to the gitconfig being reread mid-rebase.
+
+Perhaps it would be possible to make a special copy for dotfile to use during a rebase, but its really not worth it.
