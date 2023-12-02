@@ -1,1 +1,1 @@
-marko[footnote, codehilite, toc]
+marko[codehilite, toc]
