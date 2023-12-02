@@ -1,5 +1,6 @@
 <header class="article-header">
-    <h1>Musing Around Typing Latency</h1> Published <time datetime="2023-09-18">2023-09-18</time> by James Frost.
+    <h1>Musing Around Typing Latency</h1>
+    Published <time datetime="2023-09-18">2023-09-18</time> by James Frost.
     <p class="tagline">Contemplation on why typing can seem slow on modern computers.</p>
 </header>
 
@@ -44,7 +45,7 @@ displayed. Older computers typically shared the memory between the frame buffer
 and main CPU, which is why many 8 bit computers start displaying lots of funky
 patterns on screen when they are processing lots of data. The GPU does allow for
 much more complicated graphical effects to be done more quickly, but can be
-slower for simple blatting of glyphs.
+slower for simple blitting of glyphs.
 
 In the past computers were typically interrupt driven. When an external event
 happened, such as a key being pressed, the CPU drops whatever it was doing and
