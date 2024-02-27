@@ -1,23 +1,7 @@
 /* ===== Start CSS Reset ===== */
-/* Modified from https://piccalil.li/blog/a-modern-css-reset/ */
-/* Box sizing rules */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
+/* Modified from https://piccalil.li/blog/a-more-modern-css-reset/ */
 
-/* Remove default margin */
-body {
-    margin: 0;
-}
-
-/* a elements that don't have a class get default styles */
-a:not([class]) {
-    text-decoration-skip-ink: auto;
-}
-
-/* Inherit fonts for inputs and buttons */
+/* Inherit fonts for inputs and buttons. */
 input,
 button,
 textarea,
@@ -27,7 +11,7 @@ select {
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer
-not to see them */
+not to see them. */
 @media (prefers-reduced-motion: reduce) {
     html:focus-within {
         scroll-behavior: auto;
@@ -43,10 +27,27 @@ not to see them */
     }
 }
 
-/* ===== End CSS Reset ===== */
+/* Prevent font size inflation.
+https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/
+*/
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* Make sure textareas without a rows attribute are not tiny. */
+textarea:not([rows]) {
+    min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin. */
+:target {
+    scroll-margin-block: 5ex;
+}
 
 
-/* Fonts */
+/* ===== Fonts ===== */
 
 @font-face {
     font-family: "Lato";
@@ -62,65 +63,80 @@ not to see them */
 }
 
 
-/* Whole page styling */
+/* ===== Whole page styling ===== */
 
 body {
-    font-family: "Lato", sans-serif;
+    --background-colour: white;
+    --body-colour: black;
+    --heading-colour: black;
+    --faded-colour: #767676;
+    --body-font: "Lato", sans-serif;
+    --heading-font: "Lato", sans-serif;
+
+    /* Remove default margin. */
+    margin: 0;
+    font-family: var(--body-font);
+    font-size: large;
+    color: var(--body-colour);
+    background-color: var(--background-colour);
 }
 
 main {
     text-align: left;
     margin: 0 auto;
     width: 1100px;
-    max-width: 95%;
+    max-width: 97%;
 }
 
+article {
+    max-width: 50rem;
+    margin: 1em auto;
+}
 
-/* General content styling */
+/* ===== General content styling ===== */
 
 h1,
-h2 {
-    font-weight: bold;
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--heading-colour);
+    font-family: var(--heading-font);
+    text-wrap: balance;
+}
+
+h1,
+h2,
+h3 {
     text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    font-size: 2rem;
 }
 
 h1 {
     font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: xx-large;
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: x-large;
 }
 
 p {
-    font-size: 1.2em;
-    line-height: 1.75;
+    line-height: 1.5;
 }
 
-article>p,
-article>ul,
-article>h3 {
-    /* Limit article text to 80 Lato characters wide. (80 * 0.9283 = 74.264) */
-    max-width: 74ch;
-    margin: 1em auto;
-}
-
-article>h3 {
-    text-align: center;
+a {
+    text-decoration-skip-ink: auto;
 }
 
 a:focus,
 a:hover {
     text-decoration-skip-ink: none;
-    text-decoration-thickness: max(3px, 0.12em);
-}
-
-.tagline {
-    font-weight: bold;
-    font-size: 1.6rem;
+    text-decoration-thickness: clamp(3px, 0.12em, 0.5rem);
 }
 
 .fancy-picture {
@@ -133,28 +149,18 @@ a:hover {
 
 figcaption {
     text-align: center;
+    font-style: italic;
     margin-bottom: 1rem;
 }
 
 .article-header {
     text-align: center;
     max-width: 600px;
-    width: 100%;
     margin: 0 auto;
 }
 
-.blog-post {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
 
-.blog-post p {
-    text-align: left;
-}
-
-
-/* Navbar styling */
+/* ===== Navbar styling ===== */
 
 .navbar {
     margin: 1rem auto;
@@ -191,7 +197,7 @@ figcaption {
 }
 
 .navbar-title span {
-    font-size: 2rem;
+    font-size: xx-large;
     margin: auto 1.2rem;
     font-weight: bold;
 }
@@ -207,7 +213,7 @@ figcaption {
 .navbar ul a {
     text-decoration: none;
     margin: 0 0.5rem;
-    font-size: 1.5rem;
+    font-size: x-large;
     color: unset;
 }
 
@@ -217,22 +223,24 @@ figcaption {
 }
 
 
-/* Footer styling */
+/* ===== Footer styling ===== */
 
 .footer-copyright {
-    color: #767676;
+    color: var(--faded-colour);
     text-align: center;
     font-size: small;
-    margin: 2rem auto;
+    margin: 2rem 0;
 }
 
 .footer-copyright a {
-    color: #767676;
+    color: var(--faded-colour);
 }
 
 
 
-/* Homepage styling */
+/* ===== Homepage styling ===== */
+/* This is here because there is not any better place to put it, and after gzip
+it is basically free anyway. */
 
 .homepage-intro {
     display: flex;
@@ -291,27 +299,23 @@ figcaption {
     justify-content: space-around;
 }
 
-.homepage-columns article {
+.homepage-columns>* {
     max-width: 500px;
 }
 
 
-/* Contact page styling */
+/* ===== Contact page styling ===== */
+
 .contact-methods {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-
-    font-style: unset;
     text-align: center;
-
-    margin-top: 6rem;
-    margin-bottom: 3rem;
 }
 
 .contact-methods p,
 .contact-methods h2 {
-    margin: 0.5rem 0;
+    margin: 0;
 }
 
 .contact-methods img {
