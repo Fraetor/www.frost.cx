@@ -53,6 +53,19 @@ textarea:not([rows]) {
     font-display: fallback;
 }
 
+@font-face {
+    font-family: "Libre Baskerville";
+    src:
+        local("Libre Baskerville"),
+        local("LibreBaskerville"),
+        local("Baskerville"),
+        url("/assets/fonts/LibreBaskerville-Regular.woff2") format("woff2");
+    /* Only need to load woff2 as no current browser doesn't support it. */
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+}
+
 
 /* ===== Whole page styling ===== */
 
