@@ -20,7 +20,6 @@ concurrency:
 jobs:
   build-and-deploy-website:
     name: Build and Deploy Website
-    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -29,17 +28,22 @@ jobs:
       - name: Checkout website source
         uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install python dependencies
         run: python3 -m pip install -r requirements.txt
 
       - name: Build with site-generator.py
         run: python3 site-generator.py
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: build
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4

@@ -1,23 +1,7 @@
 /* ===== Start CSS Reset ===== */
-/* Modified from https://piccalil.li/blog/a-modern-css-reset/ */
-/* Box sizing rules */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
+/* Modified from https://piccalil.li/blog/a-more-modern-css-reset/ */
 
-/* Remove default margin */
-body {
-    margin: 0;
-}
-
-/* a elements that don't have a class get default styles */
-a:not([class]) {
-    text-decoration-skip-ink: auto;
-}
-
-/* Inherit fonts for inputs and buttons */
+/* Inherit fonts for inputs and buttons. */
 input,
 button,
 textarea,
@@ -27,7 +11,7 @@ select {
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer
-not to see them */
+not to see them. */
 @media (prefers-reduced-motion: reduce) {
     html:focus-within {
         scroll-behavior: auto;
@@ -43,10 +27,27 @@ not to see them */
     }
 }
 
-/* ===== End CSS Reset ===== */
+/* Prevent font size inflation.
+https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/
+*/
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* Make sure textareas without a rows attribute are not tiny. */
+textarea:not([rows]) {
+    min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin. */
+:target {
+    scroll-margin-block: 5ex;
+}
 
 
-/* Fonts */
+/* ===== Fonts ===== */
 
 @font-face {
     font-family: "Lato";
@@ -62,65 +63,88 @@ not to see them */
 }
 
 
-/* Whole page styling */
+/* ===== Whole page styling ===== */
 
 body {
-    font-family: "Lato", sans-serif;
+    --heading-font: "Libre Baskerville", serif;
+    --body-font: "Lato", sans-serif;
+    --background-colour: #fbf7ef;
+    --heading-colour: #a61c00;
+    --body-colour: #000000;
+    --subtle-foreground-colour: #767676;
+    --subtle-background-colour: #f1ede6;
+
+    /* Remove default margin. */
+    margin: 0;
+    font-family: var(--body-font);
+    font-size: large;
+    color: var(--body-colour);
+    background-color: var(--background-colour);
 }
 
 main {
     text-align: left;
     margin: 0 auto;
     width: 1100px;
-    max-width: 95%;
+    max-width: 97%;
 }
 
+article {
+    max-width: 50rem;
+    margin: 1em auto;
+}
 
-/* General content styling */
+/* ===== General content styling ===== */
 
 h1,
-h2 {
-    font-weight: bold;
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--heading-colour);
+    font-family: var(--heading-font);
+    text-wrap: balance;
+}
+
+h1,
+h2,
+h3 {
     text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    font-size: 2rem;
 }
 
 h1 {
     font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: xx-large;
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: x-large;
 }
 
 p {
-    font-size: 1.2em;
-    line-height: 1.75;
+    line-height: 1.5;
 }
 
-article>p,
-article>ul,
-article>h3 {
-    /* Limit article text to 80 Lato characters wide. (80 * 0.9283 = 74.264) */
-    max-width: 74ch;
-    margin: 1em auto;
-}
-
-article>h3 {
-    text-align: center;
+a {
+    text-decoration-skip-ink: auto;
 }
 
 a:focus,
 a:hover {
     text-decoration-skip-ink: none;
-    text-decoration-thickness: max(3px, 0.12em);
+    text-decoration-thickness: clamp(3px, 0.12em, 0.5rem);
 }
 
-.tagline {
-    font-weight: bold;
-    font-size: 1.6rem;
+code,
+pre {
+    padding: 0.25em;
+    background-color: var(--subtle-background-colour);
+    overflow-x: auto;
 }
 
 .fancy-picture {
@@ -133,28 +157,18 @@ a:hover {
 
 figcaption {
     text-align: center;
+    font-style: italic;
     margin-bottom: 1rem;
 }
 
 .article-header {
     text-align: center;
     max-width: 600px;
-    width: 100%;
     margin: 0 auto;
 }
 
-.blog-post {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-}
 
-.blog-post p {
-    text-align: left;
-}
-
-
-/* Navbar styling */
+/* ===== Navbar styling ===== */
 
 .navbar {
     margin: 1rem auto;
@@ -191,7 +205,7 @@ figcaption {
 }
 
 .navbar-title span {
-    font-size: 2rem;
+    font-size: xx-large;
     margin: auto 1.2rem;
     font-weight: bold;
 }
@@ -207,7 +221,7 @@ figcaption {
 .navbar ul a {
     text-decoration: none;
     margin: 0 0.5rem;
-    font-size: 1.5rem;
+    font-size: x-large;
     color: unset;
 }
 
@@ -217,22 +231,24 @@ figcaption {
 }
 
 
-/* Footer styling */
+/* ===== Footer styling ===== */
 
 .footer-copyright {
-    color: #767676;
+    color: var(--subtle-foreground-colour);
     text-align: center;
     font-size: small;
-    margin: 2rem auto;
+    margin: 2rem 0;
 }
 
 .footer-copyright a {
-    color: #767676;
+    color: var(--subtle-foreground-colour);
 }
 
 
 
-/* Homepage styling */
+/* ===== Homepage styling ===== */
+/* This is here because there is not any better place to put it, and after gzip
+it is basically free anyway. */
 
 .homepage-intro {
     display: flex;
@@ -291,29 +307,432 @@ figcaption {
     justify-content: space-around;
 }
 
-.homepage-columns article {
+.homepage-columns>* {
     max-width: 500px;
 }
 
 
-/* Contact page styling */
+/* ===== Contact page styling ===== */
+
 .contact-methods {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-
-    font-style: unset;
     text-align: center;
-
-    margin-top: 6rem;
-    margin-bottom: 3rem;
 }
 
 .contact-methods p,
 .contact-methods h2 {
-    margin: 0.5rem 0;
+    margin: 0;
 }
 
 .contact-methods img {
     width: 120px;
+}
+
+
+/* ===== Pygments highlighting ===== */
+/* https://pygments.org/ */
+
+div.highlight {
+    pre {
+        line-height: 125%;
+    }
+
+    td.linenos .normal {
+        color: inherit;
+        background-color: transparent;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    span.linenos {
+        color: inherit;
+        background-color: transparent;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    td.linenos .special {
+        color: #000000;
+        background-color: #ffffc0;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    span.linenos.special {
+        color: #000000;
+        background-color: #ffffc0;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .hll {
+        background-color: #ffffcc
+    }
+
+    .c {
+        color: #3D7B7B;
+        font-style: italic
+    }
+
+    /* Comment */
+    .err {
+        border: 1px solid #FF0000
+    }
+
+    /* Error */
+    .k {
+        color: #008000;
+        font-weight: bold
+    }
+
+    /* Keyword */
+    .o {
+        color: #666666
+    }
+
+    /* Operator */
+    .ch {
+        color: #3D7B7B;
+        font-style: italic
+    }
+
+    /* Comment.Hashbang */
+    .cm {
+        color: #3D7B7B;
+        font-style: italic
+    }
+
+    /* Comment.Multiline */
+    .cp {
+        color: #9C6500
+    }
+
+    /* Comment.Preproc */
+    .cpf {
+        color: #3D7B7B;
+        font-style: italic
+    }
+
+    /* Comment.PreprocFile */
+    .c1 {
+        color: #3D7B7B;
+        font-style: italic
+    }
+
+    /* Comment.Single */
+    .cs {
+        color: #3D7B7B;
+        font-style: italic
+    }
+
+    /* Comment.Special */
+    .gd {
+        color: #A00000
+    }
+
+    /* Generic.Deleted */
+    .ge {
+        font-style: italic
+    }
+
+    /* Generic.Emph */
+    .ges {
+        font-weight: bold;
+        font-style: italic
+    }
+
+    /* Generic.EmphStrong */
+    .gr {
+        color: #E40000
+    }
+
+    /* Generic.Error */
+    .gh {
+        color: #000080;
+        font-weight: bold
+    }
+
+    /* Generic.Heading */
+    .gi {
+        color: #008400
+    }
+
+    /* Generic.Inserted */
+    .go {
+        color: #717171
+    }
+
+    /* Generic.Output */
+    .gp {
+        color: #000080;
+        font-weight: bold
+    }
+
+    /* Generic.Prompt */
+    .gs {
+        font-weight: bold
+    }
+
+    /* Generic.Strong */
+    .gu {
+        color: #800080;
+        font-weight: bold
+    }
+
+    /* Generic.Subheading */
+    .gt {
+        color: #0044DD
+    }
+
+    /* Generic.Traceback */
+    .kc {
+        color: #008000;
+        font-weight: bold
+    }
+
+    /* Keyword.Constant */
+    .kd {
+        color: #008000;
+        font-weight: bold
+    }
+
+    /* Keyword.Declaration */
+    .kn {
+        color: #008000;
+        font-weight: bold
+    }
+
+    /* Keyword.Namespace */
+    .kp {
+        color: #008000
+    }
+
+    /* Keyword.Pseudo */
+    .kr {
+        color: #008000;
+        font-weight: bold
+    }
+
+    /* Keyword.Reserved */
+    .kt {
+        color: #B00040
+    }
+
+    /* Keyword.Type */
+    .m {
+        color: #666666
+    }
+
+    /* Literal.Number */
+    .s {
+        color: #BA2121
+    }
+
+    /* Literal.String */
+    .na {
+        color: #687822
+    }
+
+    /* Name.Attribute */
+    .nb {
+        color: #008000
+    }
+
+    /* Name.Builtin */
+    .nc {
+        color: #0000FF;
+        font-weight: bold
+    }
+
+    /* Name.Class */
+    .no {
+        color: #880000
+    }
+
+    /* Name.Constant */
+    .nd {
+        color: #AA22FF
+    }
+
+    /* Name.Decorator */
+    .ni {
+        color: #717171;
+        font-weight: bold
+    }
+
+    /* Name.Entity */
+    .ne {
+        color: #CB3F38;
+        font-weight: bold
+    }
+
+    /* Name.Exception */
+    .nf {
+        color: #0000FF
+    }
+
+    /* Name.Function */
+    .nl {
+        color: #767600
+    }
+
+    /* Name.Label */
+    .nn {
+        color: #0000FF;
+        font-weight: bold
+    }
+
+    /* Name.Namespace */
+    .nt {
+        color: #008000;
+        font-weight: bold
+    }
+
+    /* Name.Tag */
+    .nv {
+        color: #19177C
+    }
+
+    /* Name.Variable */
+    .ow {
+        color: #AA22FF;
+        font-weight: bold
+    }
+
+    /* Operator.Word */
+    .w {
+        color: #bbbbbb
+    }
+
+    /* Text.Whitespace */
+    .mb {
+        color: #666666
+    }
+
+    /* Literal.Number.Bin */
+    .mf {
+        color: #666666
+    }
+
+    /* Literal.Number.Float */
+    .mh {
+        color: #666666
+    }
+
+    /* Literal.Number.Hex */
+    .mi {
+        color: #666666
+    }
+
+    /* Literal.Number.Integer */
+    .mo {
+        color: #666666
+    }
+
+    /* Literal.Number.Oct */
+    .sa {
+        color: #BA2121
+    }
+
+    /* Literal.String.Affix */
+    .sb {
+        color: #BA2121
+    }
+
+    /* Literal.String.Backtick */
+    .sc {
+        color: #BA2121
+    }
+
+    /* Literal.String.Char */
+    .dl {
+        color: #BA2121
+    }
+
+    /* Literal.String.Delimiter */
+    .sd {
+        color: #BA2121;
+        font-style: italic
+    }
+
+    /* Literal.String.Doc */
+    .s2 {
+        color: #BA2121
+    }
+
+    /* Literal.String.Double */
+    .se {
+        color: #AA5D1F;
+        font-weight: bold
+    }
+
+    /* Literal.String.Escape */
+    .sh {
+        color: #BA2121
+    }
+
+    /* Literal.String.Heredoc */
+    .si {
+        color: #A45A77;
+        font-weight: bold
+    }
+
+    /* Literal.String.Interpol */
+    .sx {
+        color: #008000
+    }
+
+    /* Literal.String.Other */
+    .sr {
+        color: #A45A77
+    }
+
+    /* Literal.String.Regex */
+    .s1 {
+        color: #BA2121
+    }
+
+    /* Literal.String.Single */
+    .ss {
+        color: #19177C
+    }
+
+    /* Literal.String.Symbol */
+    .bp {
+        color: #008000
+    }
+
+    /* Name.Builtin.Pseudo */
+    .fm {
+        color: #0000FF
+    }
+
+    /* Name.Function.Magic */
+    .vc {
+        color: #19177C
+    }
+
+    /* Name.Variable.Class */
+    .vg {
+        color: #19177C
+    }
+
+    /* Name.Variable.Global */
+    .vi {
+        color: #19177C
+    }
+
+    /* Name.Variable.Instance */
+    .vm {
+        color: #19177C
+    }
+
+    /* Name.Variable.Magic */
+    .il {
+        color: #666666
+    }
+
+    /* Literal.Number.Integer.Long */
 }
