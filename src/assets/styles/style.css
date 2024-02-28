@@ -66,12 +66,13 @@ textarea:not([rows]) {
 /* ===== Whole page styling ===== */
 
 body {
-    --background-colour: white;
-    --body-colour: black;
-    --heading-colour: black;
-    --faded-colour: #767676;
+    --heading-font: "Libre Baskerville", serif;
     --body-font: "Lato", sans-serif;
-    --heading-font: "Lato", sans-serif;
+    --background-colour: #fbf7ef;
+    --heading-colour: #a61c00;
+    --body-colour: #000000;
+    --subtle-foreground-colour: #767676;
+    --subtle-background-colour: #f1ede6;
 
     /* Remove default margin. */
     margin: 0;
@@ -137,6 +138,13 @@ a:focus,
 a:hover {
     text-decoration-skip-ink: none;
     text-decoration-thickness: clamp(3px, 0.12em, 0.5rem);
+}
+
+code,
+pre {
+    padding: 0.25em;
+    background-color: var(--subtle-background-colour);
+    overflow-x: auto;
 }
 
 .fancy-picture {
@@ -226,14 +234,14 @@ figcaption {
 /* ===== Footer styling ===== */
 
 .footer-copyright {
-    color: var(--faded-colour);
+    color: var(--subtle-foreground-colour);
     text-align: center;
     font-size: small;
     margin: 2rem 0;
 }
 
 .footer-copyright a {
-    color: var(--faded-colour);
+    color: var(--subtle-foreground-colour);
 }
 
 
