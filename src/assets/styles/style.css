@@ -72,7 +72,7 @@ textarea:not([rows]) {
 body {
     --heading-font: "Libre Baskerville", serif;
     --body-font: "Lato", sans-serif;
-    --background-colour: #fbf7ef;
+    --background-colour: #ffffff;
     --heading-colour: #a61c00;
     --body-colour: #000000;
     --subtle-foreground-colour: #767676;
