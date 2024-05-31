@@ -36,6 +36,6 @@ Doing this is much easier if your system is architected in a modular way. This i
 
 While it is more work, and will be slow at first, highly coupled systems can be made more modular over time. Incrementally is the key word here, with a module first being isolated from the general code without behaviour change before any attempt to rewrite it is made. This may temporarily involve having large sections of duplicated code as systems are untangled, but is very helpful in isolating modules within the system that can then be rewritten. This is well described in [this talk on removing global state from a legacy scientific codebase](https://www.youtube.com/watch?v=H8rMv4kSzxM).
 
-Finally, it is worth remembering that a rewrite's size is relative to the available resources. What an independent developer considers a big rewrite would often be considered a small part by a large company, for example.
+Finally, it is worth remembering that a rewrite's size is relative to the available resources. What an independent developer considers a big rewrite would often be considered a small part by a large company.
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xCGu5Z_vaps" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
