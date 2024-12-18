@@ -1,0 +1,7 @@
+# ===== Welcome =====
+# Please use the contact details linked below to get in contact with me
+# regarding any security (or other) issues.
+Contact: https://www.frost.cx/contact
+Expires: 2025-12-31T123:59:59Z
+Preferred-Languages: en
+Canonical: https://www.frost.cx/.well-known/security.txt
