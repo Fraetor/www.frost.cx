@@ -98,14 +98,17 @@ def rewrite_files(build_dir: Path, components: list, template_dir: Path):
         print(file)
         try:
             page = file.read_text("UTF-8")
-        except UnicodeDecodeError:  # Skip files that aren't text.
+        except UnicodeDecodeError:
+            # Skip files that aren't text.
             continue
+        # Convert Markdown to HTML.
         if file.suffix == ".md":
             components["content"] = markdown.convert(page)
             components["title"] = file.stem.replace("_", " ").title()
             page = template_dir.joinpath("basic.html").read_text("UTF-8")
             file.unlink()
             file = file.with_suffix(".html")
+        # Insert components into page.
         for component in components:
             page = page.replace(f"<!-- REPLACE: {component} -->", components[component])
         file.write_text(page, "UTF-8")
