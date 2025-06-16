@@ -1,9 +1,9 @@
-name: Generate and Deploy Website
+name: Build and deploy website
 
 on:
   push:
     branches:
-      - main
+      - trunk
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -21,6 +21,7 @@ jobs:
   build-and-deploy-website:
     name: Build and Deploy Website
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
