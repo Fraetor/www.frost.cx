@@ -12,10 +12,16 @@
 # to the build folder.
 
 import argparse
+import re
+import urllib.parse
+import xml.etree.ElementTree as ET
+from datetime import datetime, UTC
 from pathlib import Path
 from shutil import copytree, rmtree
+from typing import Generator
 
 import marko
+from bs4 import BeautifulSoup
 
 
 def parse_args():
@@ -83,7 +89,128 @@ def load_components(components_dir: Path) -> dict:
     return components
 
 
-def rewrite_files(build_dir: Path, components: list, template_dir: Path):
+def slugify(s: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", s.casefold()).strip("-")
+
+
+class URL:
+    url: str
+
+    def __init__(self, url: str):
+        # Basic sanity check.
+        if not re.fullmatch(r"https?://.+\..+", url, flags=re.IGNORECASE):
+            raise ValueError(f"URL must be a HTTP or HTTPS URL, not {url}")
+        self.url = url
+
+    def __str__(self) -> str:
+        return self.url
+
+    def join(self, path: str):
+        """Join the path to the URL."""
+        new_url = urllib.parse.urljoin(self.url, path)
+        return self.__class__(new_url)
+
+
+class BlogEntry:
+    url: URL
+    title: str
+    date: datetime
+    category: str
+
+    def __init__(self, url: URL, title: str, category: str, date: datetime):
+        if not (
+            isinstance(url, URL)
+            and isinstance(title, str)
+            and isinstance(category, str)
+            and isinstance(date, datetime)
+        ):
+            raise TypeError("Invalid argument types for BlogEntry.")
+        self.url = url
+        self.title = title
+        self.category = category
+        self.date = date
+
+    def __str__(self) -> str:
+        return (
+            f"BlogEntry:\n\tURL: {self.url}\n\tTitle: {self.title}\n"
+            f"\tDate: {self.date}\n\tCategory: {self.category})"
+        )
+
+    def atom_entry(self) -> ET.Element:
+        """Return an Atom entry element for this post."""
+        entry = ET.Element("entry")
+        ET.SubElement(entry, "title").text = self.title
+        ET.SubElement(entry, "link", {"href": str(self.url)})
+        ET.SubElement(entry, "id").text = str(self.url)
+        ET.SubElement(entry, "updated").text = self.date.isoformat(timespec="seconds")
+        ET.SubElement(entry, "published").text = self.date.isoformat(timespec="seconds")
+        ET.SubElement(
+            entry, "category", {"term": slugify(self.category), "label": self.category}
+        )
+        ET.SubElement(
+            entry, "summary", {"type": "html"}
+        ).text = f'Read this post at <a href="{self.url}">{self.url}</a>'
+        return entry
+
+
+def get_entries(blog_index: Path) -> Generator[BlogEntry]:
+    with open(blog_index, "rt") as fp:
+        soup = BeautifulSoup(fp, "html.parser")
+    for article in soup.find_all("article"):
+        url = URL("https://www.frost.cx/").join(article.h2.a["href"])
+        title = article.h2.string
+        # Add timezone to date.
+        date = datetime.fromisoformat(article.time["datetime"]).replace(tzinfo=UTC)
+        # Hard coded for now.
+        category = "Blog"
+        yield BlogEntry(url, title, category, date)
+
+
+def generate_feed(feed_path: str, blog_index: Path):
+    # Build XML atom feed.
+    feed = ET.Element("feed", {"xmlns": "http://www.w3.org/2005/Atom"})
+    # Constant elements.
+    ET.SubElement(feed, "id").text = "urn:uuid:1a927772-32dd-42a1-8291-3002a6c67d4b"
+    ET.SubElement(feed, "title").text = "James Frost's Blog"
+    ET.SubElement(
+        feed, "link", {"href": "https://www.frost.cx/feed/blog.xml", "rel": "self"}
+    )
+    ET.SubElement(feed, "icon").text = "https://www.frost.cx/favicon.ico"
+    author = ET.SubElement(feed, "author")
+    ET.SubElement(author, "name").text = "James Frost"
+    ET.SubElement(author, "uri").text = "https://www.frost.cx/"
+    ET.SubElement(author, "email").text = "contact@frost.cx"
+    ET.SubElement(feed, "rights").text = "CC BY 4.0"
+    ET.SubElement(feed, "subtitle").text = (
+        "James Frost's blog. This website is for me to host my projects, "
+        "write some blog posts, and do anything else I decide to do with it."
+    )
+    ET.SubElement(
+        feed, "generator", {"uri": "https://github.com/Fraetor/www.frost.cx"}
+    ).text = "Slightly less horrible hand-coded feed generator"
+    # Add update time.
+    ET.SubElement(feed, "updated").text = datetime.now(tz=UTC).isoformat(
+        timespec="seconds"
+    )
+
+    # Loop to generate and add entries.
+    for entry in get_entries(blog_index):
+        print("Adding entry to feed:", entry)
+        feed.append(entry.atom_entry())
+
+    # Write XML document.
+    with open(feed_path, "wt", encoding="utf-8") as fp:
+        # Manually write XML header to allow adding a stylesheet.
+        fp.write(
+            '<?xml version="1.0" encoding="UTF-8"?>\n<?xml-stylesheet href="atom-style.xsl" type="text/xsl"?>\n'
+        )
+        tree = ET.ElementTree(feed)
+        # Format nicely.
+        ET.indent(tree)
+        tree.write(fp, encoding="unicode", xml_declaration=False)
+
+
+def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
     """
     Rewrites the files in the specified directory using the components.
 
@@ -123,6 +250,7 @@ def main():
     copytree(args.source, args.output, dirs_exist_ok=True)
     components = load_components(args.components)
     rewrite_files(args.output, components, args.templates)
+    generate_feed(args.output / "feed/blog.xml", args.output / "blog.html")
 
 
 if __name__ == "__main__":
