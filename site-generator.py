@@ -175,6 +175,9 @@ def generate_feed(feed_path: str, blog_index: Path):
     ET.SubElement(
         feed, "link", {"href": "https://www.frost.cx/feed/blog.xml", "rel": "self"}
     )
+    ET.SubElement(
+        feed, "link", {"href": "https://www.frost.cx/blog", "rel": "alternate"}
+    )
     ET.SubElement(feed, "icon").text = "https://www.frost.cx/favicon.ico"
     author = ET.SubElement(feed, "author")
     ET.SubElement(author, "name").text = "James Frost"
