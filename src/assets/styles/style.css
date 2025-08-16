@@ -182,12 +182,6 @@ figcaption {
 }
 
 .inline-img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-p img {
     width: 1.5em;
     height: 1.5em;
     display: inline;
@@ -349,9 +343,9 @@ it is basically free anyway. */
 }
 
 .contact-methods section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contact-methods p,
