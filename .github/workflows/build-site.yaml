@@ -20,8 +20,8 @@ concurrency:
 jobs:
   build-and-deploy-website:
     name: Build and deploy website
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
