@@ -169,6 +169,8 @@ def get_entries(blog_index: Path) -> Generator[BlogEntry]:
 def generate_feed(feed_path: str, blog_index: Path):
     # Build XML atom feed.
     feed = ET.Element("feed", {"xmlns": "http://www.w3.org/2005/Atom"})
+    # XSLT polyfill to render on Chrome.
+    ET.SubElement(feed, "script", {"src": "xslt-polyfill.min.js", "xmlns": "http://www.w3.org/1999/xhtml"})
     # Constant elements.
     ET.SubElement(feed, "id").text = "urn:uuid:1a927772-32dd-42a1-8291-3002a6c67d4b"
     ET.SubElement(feed, "title").text = "James Frost's Blog"
