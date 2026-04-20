@@ -11,8 +11,10 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment, skipping runs queued between the run
+# in-progress and latest queued. However, do NOT cancel in-progress runs as we
+# want to allow these to complete. This avoids racing between pushes and
+# accidentally deploying an older version.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -20,7 +22,7 @@ concurrency:
 jobs:
   build-and-deploy-website:
     name: Build and deploy website
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     environment:
       name: github-pages
@@ -34,13 +36,10 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install python dependencies
-        run: python3 -m pip install --verbose --progress-bar 'off' --requirement requirements.txt
+      - name: Build website
+        run: make build
 
-      - name: Build with site-generator.py
-        run: python3 site-generator.py
-
-      - name: Upload artifact
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
           path: build
