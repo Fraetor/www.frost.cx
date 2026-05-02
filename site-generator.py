@@ -234,7 +234,7 @@ def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
         # Convert Markdown to HTML.
         if file.suffix == ".md":
             components["content"] = markdown.convert(page)
-            components["title"] = file.stem.replace("_", " ").title()
+            components["title"] = file.stem.replace("_", " ").replace("-", " ").title()
             page = template_dir.joinpath("basic.html").read_text("UTF-8")
             file.unlink()
             file = file.with_suffix(".html")
