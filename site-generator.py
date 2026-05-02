@@ -235,8 +235,11 @@ def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
 
         # Convert Markdown to HTML.
         if file.suffix == ".md":
-            components["content"] = markdown.convert(page)
-            components["title"] = file.stem.replace("_", " ").replace("-", " ").title()
+            html_content = markdown.convert(page)
+            title_elem = BeautifulSoup(html_content, "html.parser").find(name="h1")
+            title = title_elem.text if title_elem else "Untitled"
+            components["content"] = html_content
+            components["title"] = title
             page = template_dir.joinpath("basic.html").read_text("UTF-8")
             file.unlink()
             file = file.with_suffix(".html")
