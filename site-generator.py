@@ -133,7 +133,7 @@ class BlogEntry:
     def __str__(self) -> str:
         return (
             f"BlogEntry:\n\tURL: {self.url}\n\tTitle: {self.title}\n"
-            f"\tDate: {self.date}\n\tCategory: {self.category})"
+            f"\tDate: {self.date}\n\tCategory: {self.category}"
         )
 
     def atom_entry(self) -> ET.Element:
