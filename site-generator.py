@@ -89,6 +89,42 @@ def load_components(components_dir: Path) -> dict:
     return components
 
 
+def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
+    """
+    Rewrites the files in the specified directory using the components.
+
+    Args:
+        build_dir: Path - The directory of files to rewrite.
+        components: list[dict[str]] - List of component dictionaries.
+    """
+    print("\nProcessing files:")
+    files = list_files(build_dir)
+    markdown = marko.Markdown(extensions=["toc", "footnote", "codehilite"])
+    for file in files:
+        print(f"\t{file}")
+        try:
+            page = file.read_text("UTF-8")
+        except UnicodeDecodeError:
+            # Skip files that aren't text.
+            continue
+
+        # Convert Markdown to HTML.
+        if file.suffix == ".md":
+            html_content = markdown.convert(page)
+            title_elem = BeautifulSoup(html_content, "html.parser").find(name="h1")
+            title = title_elem.text if title_elem else "Untitled"
+            components["content"] = html_content
+            components["title"] = title
+            page = template_dir.joinpath("basic.html").read_text("UTF-8")
+            file.unlink()
+            file = file.with_suffix(".html")
+
+        # Insert components into page.
+        for component in components:
+            page = page.replace(f"<!-- REPLACE: {component} -->", components[component])
+        file.write_text(page, "UTF-8")
+
+
 def slugify(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", s.casefold()).strip("-")
 
@@ -212,42 +248,6 @@ def generate_feed(feed_path: str, blog_index: Path):
         # Format nicely.
         ET.indent(tree)
         tree.write(fp, encoding="unicode", xml_declaration=False)
-
-
-def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
-    """
-    Rewrites the files in the specified directory using the components.
-
-    Args:
-        build_dir: Path - The directory of files to rewrite.
-        components: list[dict[str]] - List of component dictionaries.
-    """
-    print("\nProcessing files:")
-    files = list_files(build_dir)
-    markdown = marko.Markdown(extensions=["toc", "footnote", "codehilite"])
-    for file in files:
-        print(f"\t{file}")
-        try:
-            page = file.read_text("UTF-8")
-        except UnicodeDecodeError:
-            # Skip files that aren't text.
-            continue
-
-        # Convert Markdown to HTML.
-        if file.suffix == ".md":
-            html_content = markdown.convert(page)
-            title_elem = BeautifulSoup(html_content, "html.parser").find(name="h1")
-            title = title_elem.text if title_elem else "Untitled"
-            components["content"] = html_content
-            components["title"] = title
-            page = template_dir.joinpath("basic.html").read_text("UTF-8")
-            file.unlink()
-            file = file.with_suffix(".html")
-
-        # Insert components into page.
-        for component in components:
-            page = page.replace(f"<!-- REPLACE: {component} -->", components[component])
-        file.write_text(page, "UTF-8")
 
 
 def main():
