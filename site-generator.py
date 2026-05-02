@@ -84,7 +84,7 @@ def load_components(components_dir: Path) -> dict:
     components = {}
     for component_file in component_files:
         component_name = component_file.stem
-        print(component_name)
+        print(f"\t{component_name}")
         components[component_name] = component_file.read_text("UTF-8")
     return components
 
@@ -197,8 +197,9 @@ def generate_feed(feed_path: str, blog_index: Path):
     )
 
     # Loop to generate and add entries.
+    print("\nAdding entries to feed:")
     for entry in get_entries(blog_index):
-        print("Adding entry to feed:", entry)
+        print(entry)
         feed.append(entry.atom_entry())
 
     # Write XML document.
@@ -225,12 +226,13 @@ def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
     files = list_files(build_dir)
     markdown = marko.Markdown(extensions=["toc", "footnote", "codehilite"])
     for file in files:
-        print(file)
+        print(f"\t{file}")
         try:
             page = file.read_text("UTF-8")
         except UnicodeDecodeError:
             # Skip files that aren't text.
             continue
+
         # Convert Markdown to HTML.
         if file.suffix == ".md":
             components["content"] = markdown.convert(page)
@@ -238,6 +240,7 @@ def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
             page = template_dir.joinpath("basic.html").read_text("UTF-8")
             file.unlink()
             file = file.with_suffix(".html")
+
         # Insert components into page.
         for component in components:
             page = page.replace(f"<!-- REPLACE: {component} -->", components[component])
@@ -247,13 +250,14 @@ def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
 def main():
     args = parse_args()
     if args.clean:
-        print("Cleaning build directory...\n")
+        print("Cleaning build directory.\n")
         # Delete preexisting files in build folder.
         rmtree(args.output, ignore_errors=True)
     copytree(args.source, args.output, dirs_exist_ok=True)
     components = load_components(args.components)
     rewrite_files(args.output, components, args.templates)
     generate_feed(args.output / "feed/blog.xml", args.output / "blog.html")
+    print("\nAll done!")
 
 
 if __name__ == "__main__":
