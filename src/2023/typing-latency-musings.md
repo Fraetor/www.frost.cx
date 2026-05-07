@@ -1,5 +1,5 @@
 <header class="article-header">
-    <h1>Musing Around Typing Latency</h1>
+    <h1>Musing around typing latency</h1>
     Published <time datetime="2023-09-18">2023-09-18</time> by James Frost.
     <p class="tagline">Contemplation on why typing can seem slow on modern computers.</p>
 </header>

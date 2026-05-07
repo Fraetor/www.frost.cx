@@ -1,5 +1,5 @@
 <header class="article-header">
-    <h1>Dotfile Setup</h1>
+    <h1>Dotfile setup</h1>
     Published <time datetime="2023-12-02">2023-12-02</time> by James Frost.
     <p class="tagline">How I manage my configurations.</p>
 </header>

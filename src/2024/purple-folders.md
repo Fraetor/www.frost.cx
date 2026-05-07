@@ -1,5 +1,5 @@
 <header class="article-header">
-    <h1>Purple Adwaita Folders</h1>
+    <h1>Purple Adwaita folders</h1>
     Published <time datetime="2024-03-27">2024-03-27</time> by James Frost.
     <p class="tagline">A small icon theme to get some nice purple folders on GNOME.</p>
 </header>
