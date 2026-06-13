@@ -4,7 +4,8 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
+WorkingDirectory=~
 Type=oneshot
-ExecStart=git -C ~/www.frost.cx pull
-ExecStart=make --directory=~/www.frost.cx build
-ExecStart=rsync --recursive --delete ~/www.frost.cx/build/ /var/www/www.frost.cx/
+ExecStart=git -C ./www.frost.cx pull
+ExecStart=make --directory=./www.frost.cx build
+ExecStart=rsync --recursive --delete ./www.frost.cx/build/ /var/www/www.frost.cx/
