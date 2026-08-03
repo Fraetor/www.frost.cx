@@ -15,10 +15,10 @@ import argparse
 import re
 import urllib.parse
 import xml.etree.ElementTree as ET
-from datetime import datetime, UTC
+from collections.abc import Generator
+from datetime import UTC, datetime
 from pathlib import Path
 from shutil import copytree, rmtree
-from typing import Generator
 
 import marko
 from bs4 import BeautifulSoup
