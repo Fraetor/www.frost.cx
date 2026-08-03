@@ -120,8 +120,8 @@ def rewrite_files(build_dir: Path, components: dict, template_dir: Path):
             file = file.with_suffix(".html")
 
         # Insert components into page.
-        for component in components:
-            page = page.replace(f"<!-- REPLACE: {component} -->", components[component])
+        for component_name, component in components.items():
+            page = page.replace(f"<!-- REPLACE: {component_name} -->", component)
         file.write_text(page, "UTF-8")
 
 
