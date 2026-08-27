@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS :active test</title>
+    <style>
+        div {
+            background-color: lightsalmon;
+            width: max-content;
+            padding: 1em;
+
+            &:active {
+                background-color: greenyellow;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#">
+        <div>Click me!</div>
+    </a>
+    <p>
+        Click the button above. It should change colour to
+        <span style="background-color: greenyellow;">green</span>
+        while your mouse button is held down.
+    </p>
+</body>
+</html>
